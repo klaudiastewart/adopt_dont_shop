@@ -17,7 +17,7 @@
 <% if params[:description] %>
   <%= @applicant.pending_status %>
 <% else  %>
-  <p><%= @applicant.status %></br>
+  <%= @applicant.status %></br>
 <% end  %>
 
 <h3><u>Add a pet to this application by name:</u></h3>
@@ -39,9 +39,13 @@
   <% end %></br>
 
 <h2>Application Submittal</h2>
-  <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
-    <h4>Please describe below why you'd make a good home for this pet:</h4>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-    <%= f.submit "Submit" %>
+  <% if @applicants_pets.count >= 1 %>
+    <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
+      <h4>Please describe below why you'd make a good home for this pet:</h4>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+      <%= f.submit "Submit Application" %>
+      <% end %>
+  <% else %>
+    <p>Please add an animal to your application to submit</p>
   <% end %>

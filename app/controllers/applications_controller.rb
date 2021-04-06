@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
   def show
     if params[:search]
       @applicant = Application.find(params[:id])
-      @pets = Pet.where(name: params[:search].capitalize)
+      @pets = Pet.where(name: params[:search].capitalize) #capitalize can go into view
     else
       @applicant = Application.find(params[:id])
     end
@@ -22,7 +22,8 @@ class ApplicationsController < ApplicationController
     if application.save
       redirect_to "/applications/#{application.id}"
     else
-      redirect_to "/applications/new"
+      # redirect_to "/applications/new" #try render
+      render :new
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
   end
