@@ -3,6 +3,7 @@ class Application < ApplicationRecord
   has_many :pets, through: :application_pets
 
   validates :name, :street_address, :city, :zip_code, presence: true
+  # validates :description, presence: true
   after_initialize :default, unless: :persisted? #unless status is changed, it will remain "in progress"
 
   def default
@@ -10,7 +11,7 @@ class Application < ApplicationRecord
   end
 
   def pending_status
-    self.status = "Pending" 
+    self.status = "Pending"
     #once description and adopt this pet has
     #been completed, status change
     #call for update to attribute status, for
