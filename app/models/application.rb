@@ -9,8 +9,9 @@ class Application < ApplicationRecord
     self.status = "In Progress"
   end
 
-  def status_change
-    #once description and adopt this pet has 
+  def pending_status
+    self.status = "Pending" 
+    #once description and adopt this pet has
     #been completed, status change
     #call for update to attribute status, for
     #now hardcode status into pending
