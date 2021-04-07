@@ -9,9 +9,11 @@
 </p>
 
 <h3><u> Pets this application is for:</u></h3>
-<% @applicants_pets.map do |pet| %>
-  <%= pet.name %>
-<% end %>
+<section>
+  <% @applicants_pets.map do |pet| %>
+    <p class="names" id="pet-name-<%= pet.id %>"><%= pet.name %></p>
+  <% end %>
+</section>
 
 <h3><u> Application status:</u></h3>
 <% if params[:description] %>
@@ -33,8 +35,10 @@
 
   <% if params[:search] %>
     <% @pets.map do |pet| %>
-      <p id="singleline"><%= pet.name %>
-      <%= button_to "Adopt this pet", "/applications/#{@applicant.id}", method: :post, params: { pet_id: pet.id } %></p>
+      <section id="adopt-<%=pet.id%>">
+        <%= pet.name %>
+          <%= button_to "Adopt this pet", "/applications/#{@applicant.id}", method: :post, params: { pet_id: pet.id } %>
+      </section>
     <% end %>
   <% end %></br>
 

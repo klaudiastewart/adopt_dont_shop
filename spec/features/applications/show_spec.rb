@@ -55,6 +55,14 @@ RSpec.describe "the Application show page" do
   end
 
   it 'can search for pets to add and can add them' do
+    cat = @pound.pets.create!(name: "Bob",
+                                        adoptable: true,
+                                        age: 1,
+                                        breed: "smol",
+                                        created_at: Time.now,
+                                        updated_at: Time.now
+                                        )
+
     visit "/applications/#{@applicant.id}"
 
     expect(page).to have_content("Add a pet to this application by name:")
@@ -66,10 +74,15 @@ RSpec.describe "the Application show page" do
     expect(page).to have_content("Bob")
     expect(page).to have_button("Adopt this pet")
 
-    click_button "Adopt this pet"
+    within("#adopt-#{cat.id}") do
+      click_button "Adopt this pet"
+    end
+
+    within("#pet-name-#{cat.id}") do
+      expect(page).to have_content("Bob")
+    end
 
     expect(current_path).to eq("/applications/#{@applicant.id}")
-    expect(page).to have_content("Bob") #How to do a within for this?
     expect(page).to have_content("Please describe below why you'd make a good home for this pet:")
   end
 
