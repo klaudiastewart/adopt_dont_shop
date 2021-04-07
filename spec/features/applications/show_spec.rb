@@ -11,24 +11,24 @@ RSpec.describe "the Application show page" do
                               created_at: Time.now,
                               updated_at: Time.now
                               )
-  @pound = Shelter.find_or_create_by!(foster_program: true,
-                                    name: "da pound",
-                                    city: "Denver",
-                                    rank: 1,
-                                    created_at: Time.now,
-                                    updated_at: Time.now
-                                    )
-  @dog = @pound.pets.find_or_create_by!(name: "Bob",
-                                      adoptable: true,
-                                      age: 1,
-                                      breed: "smol",
+    @pound = Shelter.find_or_create_by!(foster_program: true,
+                                      name: "da pound",
+                                      city: "Denver",
+                                      rank: 1,
                                       created_at: Time.now,
                                       updated_at: Time.now
                                       )
+    @dog = @pound.pets.find_or_create_by!(name: "Bob",
+                                        adoptable: true,
+                                        age: 1,
+                                        breed: "smol",
+                                        created_at: Time.now,
+                                        updated_at: Time.now
+                                        )
 
-    end
+  end
 
-    it "should display applicant info" do
+  it "should display applicant info" do
     visit "/applications/#{@applicant.id}"
 
     expect(page).to have_content(@applicant.name)
@@ -99,5 +99,38 @@ RSpec.describe "the Application show page" do
     expect(current_path).to eq("/applications/#{@applicant.id}")
     expect(page).to have_content("You've already submitted your application")
     expect(page).to have_content(@applicant.pending_status)
+  end
+
+  it 'can find partial matches to pet names that are also case insensitive' do
+    cat = @pound.pets.create!(name: "Mr. Bob",
+                              adoptable: true,
+                              age: 1,
+                              breed: "smol"
+                              )
+    dawg = @pound.pets.create!(name: "bobby",
+                              adoptable: true,
+                              age: 1,
+                              breed: "smol"
+                              )
+
+    visit "/applications/#{@applicant.id}"
+
+    fill_in "search", with: "BOB"
+    click_button "Submit"
+
+    within("#adopt-#{@dog.id}") do
+      expect(page).to have_content("bob")
+      expect(page).to have_button("Adopt this pet")
+    end
+
+    within("#adopt-#{cat.id}") do
+      expect(page).to have_content("Mr. Bob")
+      expect(page).to have_button("Adopt this pet")
+    end
+
+    within("#adopt-#{dawg.id}") do
+      expect(page).to have_content("bobby")
+      expect(page).to have_button("Adopt this pet")
+    end
   end
 end

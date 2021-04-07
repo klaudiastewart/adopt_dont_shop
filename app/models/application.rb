@@ -12,9 +12,9 @@ class Application < ApplicationRecord
 
   def pending_status
     self.status = "Pending"
-    #once description and adopt this pet has
-    #been completed, status change
-    #call for update to attribute status, for
-    #now hardcode status into pending
   end
+
+  # def partial_match
+  #   self.where("name like ?", "%#{name}%")
+  # end
 end

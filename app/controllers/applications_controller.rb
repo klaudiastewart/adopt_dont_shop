@@ -5,7 +5,8 @@ class ApplicationsController < ApplicationController
   def show
     if params[:search]
       @applicant = Application.find(params[:id])
-      @pets = Pet.where(name: params[:search].capitalize) #capitalize can go into view
+      # @pets = Pet.partial_match
+      @pets = Pet.where("name ILIKE ?", "%#{params[:search]}%")
     else
       @applicant = Application.find(params[:id])
     end

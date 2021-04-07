@@ -12,4 +12,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.partial_match
+    #How do I get params to come thru? to use this method on applications controller?
+    where("name ILIKE ?", "%#{params[:search]}%")
+  end
 end
