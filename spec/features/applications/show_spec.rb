@@ -119,7 +119,7 @@ RSpec.describe "the Application show page" do
     click_button "Submit"
 
     within("#adopt-#{@dog.id}") do
-      expect(page).to have_content("bob")
+      expect(page).to have_content("Bob")
       expect(page).to have_button("Adopt this pet")
     end
 

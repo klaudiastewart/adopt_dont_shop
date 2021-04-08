@@ -5,8 +5,7 @@ class ApplicationsController < ApplicationController
   def show
     if params[:search]
       @applicant = Application.find(params[:id])
-      # @pets = Pet.partial_match
-      @pets = Pet.where("name ILIKE ?", "%#{params[:search]}%")
+      @pets = Pet.partial_match(params[:search])
     else
       @applicant = Application.find(params[:id])
     end

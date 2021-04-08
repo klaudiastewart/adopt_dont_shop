@@ -6,6 +6,8 @@ class Application < ApplicationRecord
   # validates :description, presence: true
   after_initialize :default, unless: :persisted? #unless status is changed, it will remain "in progress"
 
+  #Can update status to use t.enum in table
+
   def default
     self.status = "In Progress"
   end
@@ -13,8 +15,4 @@ class Application < ApplicationRecord
   def pending_status
     self.status = "Pending"
   end
-
-  # def partial_match
-  #   self.where("name like ?", "%#{name}%")
-  # end
 end
