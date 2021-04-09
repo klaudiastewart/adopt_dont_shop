@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
   def show
     if params[:search]
       @applicant = Application.find(params[:id])
-      @pets = Pet.where(name: params[:search].capitalize) #capitalize can go into view
+      @pets = Pet.partial_match(params[:search])
     else
       @applicant = Application.find(params[:id])
     end
@@ -26,6 +26,15 @@ class ApplicationsController < ApplicationController
       render :new
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def update
+    @applicant = Application.find(params[:id])
+    @applicant.update({
+      description: params[:description],
+      status: "Pending"
+      })
+    redirect_to "/applications/#{@applicant.id}"
   end
 
   private

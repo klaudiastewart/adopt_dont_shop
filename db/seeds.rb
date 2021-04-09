@@ -13,10 +13,25 @@
   pound = Shelter.find_or_create_by!(foster_program: true,
                                       name: "da pound",
                                       city: "Denver",
+                                      rank: 3,
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+  happy_place = Shelter.find_or_create_by!(foster_program: true,
+                                      name: "appple jack",
+                                      city: "Denver",
                                       rank: 1,
                                       created_at: Time.now,
                                       updated_at: Time.now
                                       )
+  half_way = Shelter.find_or_create_by!(foster_program: true,
+                                      name: "zone one",
+                                      city: "Denver",
+                                      rank: 4,
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+
   dog = pound.pets.find_or_create_by!(name: "Bob",
                                       adoptable: true,
                                       age: 1,
@@ -24,6 +39,21 @@
                                       created_at: Time.now,
                                       updated_at: Time.now
                                       )
+  cat = pound.pets.find_or_create_by!(name: "Mr. Bob",
+                                      adoptable: true,
+                                      age: 1,
+                                      breed: "smol",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+  mouse = pound.pets.find_or_create_by!(name: "Bobby",
+                                      adoptable: true,
+                                      age: 1,
+                                      breed: "smol",
+                                      created_at: Time.now,
+                                      updated_at: Time.now
+                                      )
+
   applicant = Application.find_or_create_by!(name: "Klaw",
                                               street_address: "123 way",
                                               city: "Denver",
@@ -34,4 +64,7 @@
                                               created_at: Time.now,
                                               updated_at: Time.now
                                               )
+
 ApplicationPet.find_or_create_by!(application: applicant, pet: dog)
+ApplicationPet.find_or_create_by!(application: applicant, pet: cat)
+ApplicationPet.find_or_create_by!(application: applicant, pet: mouse)
