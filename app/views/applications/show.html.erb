@@ -22,16 +22,16 @@
 <%= @applicant.description %>
 
 <h3><u>Add a pet to this application by name:</u></h3>
-  <% if !params[:description] %>
+  <% if @applicant.status == "In Progress" %>
     <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
       <%= f.label :search %>
       <%= f.text_field :search %>
       <%= f.submit "Submit" %>
     <% end %>
-  <% else params[:description] %>
+  <% else %>
     <p>You've already submitted your application</p>
   <% end %>
-
+  
   <% if params[:search] %>
     <% @pets.map do |pet| %>
       <section id="adopt-<%=pet.id%>">

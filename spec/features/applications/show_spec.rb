@@ -91,14 +91,17 @@ RSpec.describe "the Application show page" do
 
     fill_in "search", with: "bob"
     click_button "Submit"
-    click_button "Adopt this pet"
 
+    within("#adopt-#{@dog.id}") do
+      click_button "Adopt this pet"
+    end
+    
     fill_in "description", with: "I like doges"
     click_button "Submit Application"
 
     expect(current_path).to eq("/applications/#{@applicant.id}")
-    expect(page).to have_content("You've already submitted your application")
-    expect(page).to have_content(@applicant.pending_status)
+    # expect(page).to have_content("You've already submitted your application")
+    expect(page).to have_content("Pending")
   end
 
   it 'can find partial matches to pet names that are also case insensitive' do
