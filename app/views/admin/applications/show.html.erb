@@ -1,1 +1,13 @@
-<p>Hello</p>
+<h3>Pets this application is for</h3>
+  <% if !params[:pet_id] %>
+    <% @pets.each do |pet| %>
+      <section id="pet-on-application-<%=pet.id%>">
+        <%= pet.name %>
+          <%= button_to "Approve", "/admin/applications/#{@applicant.id}", method: :patch, params: { pet_id: pet.id } %>
+      </section>
+    <% end %>
+  <% else %>
+    <% @application_pets.each do |ap| %>
+      <%= Pet.find(params[:pet_id]).name %>, <%= ap.status %>
+    <% end %>
+  <% end %>
