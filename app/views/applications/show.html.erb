@@ -5,7 +5,7 @@
   <%= @applicant.street_address %>,
   <%= @applicant.city %>,
   <%= @applicant.state %>
-  <%= @applicant.zip_code %>
+  <%= @applicant.zip_code %><br>
 </p>
 
 <h3><u> Pets this application is for:</u></h3>
@@ -16,11 +16,10 @@
 </section>
 
 <h3><u> Application status:</u></h3>
-<% if params[:description] %>
-  <%= @applicant.pending_status %>
-<% else  %>
-  <%= @applicant.status %></br>
-<% end  %>
+<%= @applicant.status %>
+
+<h3><u>Why would you make a good home for these pet(s)</u></h3>
+<%= @applicant.description %>
 
 <h3><u>Add a pet to this application by name:</u></h3>
   <% if !params[:description] %>
@@ -44,7 +43,7 @@
 
 <h2>Application Submittal</h2>
   <% if @applicants_pets.count >= 1 %>
-    <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |f| %>
+    <%= form_with url: "/applications/#{@applicant.id}", method: :patch, local: true do |f| %>
       <h4>Please describe below why you'd make a good home for this pet:</h4>
       <%= f.label :description %>
       <%= f.text_area :description %>

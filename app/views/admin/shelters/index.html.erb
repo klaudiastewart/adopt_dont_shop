@@ -8,3 +8,11 @@
     <% end %>
   </ul>
 </p>
+<h2><u>
+  Shelters with Pending Applications
+</h2></u>
+<p>
+  <% @pending.each do |pend| %>
+    <%= pend.name %>
+  <% end %>
+</p>

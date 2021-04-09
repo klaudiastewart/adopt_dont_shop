@@ -9,6 +9,10 @@ class Shelter < ApplicationRecord
     find_by_sql("select shelters.* from shelters order by shelters.name desc")
   end
 
+  def self.pending_applications
+    joins(pets: :applications).where("applications.status = ?", 'Pending')
+  end
+
   def self.order_by_recently_created
     order(created_at: :desc)
   end

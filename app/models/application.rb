@@ -11,8 +11,4 @@ class Application < ApplicationRecord
   def default
     self.status = "In Progress"
   end
-
-  def pending_status
-    self.status = "Pending"
-  end
 end
