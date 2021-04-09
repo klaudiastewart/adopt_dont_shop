@@ -24,6 +24,12 @@ RSpec.describe Shelter, type: :model do
   end
 
   describe 'class methods' do
+    describe '#order_reverse_alpha' do
+      it 'returns shelters in reverse alphabetical order' do
+        expect(Shelter.order_reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+    
     describe '#search' do
       it 'returns partial matches' do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
